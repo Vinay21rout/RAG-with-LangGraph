@@ -1,0 +1,37 @@
+# Environment
+.env
+
+# App & backend
+app.py
+rag_backend.py
+
+# Virtual environment
+.venv/
+venv/
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Data / PDFs
+data/
+
+# Chroma vector store
+chroma_db/
+
+# UV
+.python-version
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db

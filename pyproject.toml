@@ -1,0 +1,20 @@
+[project]
+name = "rag-using-langgraph"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "ipykernel>=7.2.0",
+    "langchain-groq",
+    "python-dotenv",
+    "langchain",
+    "langchain-text-splitters",
+    "langchain-community",
+    "langchain-huggingface",
+    "sentence-transformers",
+    "langchain-chroma",
+    "pypdf",
+    "streamlit",
+    "langgraph>=1.1.3",
+]
