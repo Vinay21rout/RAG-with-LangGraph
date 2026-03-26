@@ -57,6 +57,27 @@ A Retrieval-Augmented Generation (RAG) chatbot built with LangGraph, LangChain, 
 3. A `rag_tool` retrieves relevant chunks based on user query
 4. LangGraph agent decides when to call the tool and generates a final answer
 
+## Human-in-the-Loop (HITL)
+
+This project implements LangGraph's native `interrupt()` function for human confirmation before every query execution.
+
+**Graph flow:**
+```
+START → human_review_node (interrupt) → chat_node → tools → chat_node → END
+```
+
+**How it works:**
+1. User enters a question
+2. Graph pauses at `human_review_node` via `interrupt()` and asks: `Are you sure you want to ask '...'? (Y/N):`
+3. User types `Y` → graph resumes via `Command(resume=confirm)` and LLM generates the answer
+4. User types `N` → query is cancelled with `Request cancelled by user.`
+
+**Key components used:**
+- `interrupt()` — pauses the graph mid-execution and waits for human input
+- `MemorySaver` — checkpointer that saves graph state so execution can be resumed
+- `Command(resume=...)` — resumes the paused graph with the human's response
+- `thread_id` — unique session identifier passed via `config` to track which execution to resume
+
 ---
 
 ## Roadmap & Future Upgrades
@@ -89,7 +110,7 @@ A Retrieval-Augmented Generation (RAG) chatbot built with LangGraph, LangChain, 
 ### Agentic Workflow Upgrades
 - **Reflection node**: Agent self-evaluates its answer and retries if confidence is low
 - **Plan-and-execute pattern**: Agent breaks complex queries into sub-tasks and solves them step by step
-- **Human-in-the-loop**: Add interrupt points where a human can review or correct the agent before it proceeds
+- **Human-in-the-loop**: ✅ Implemented — uses LangGraph `interrupt()` + `MemorySaver` + `Command(resume=...)` for confirmation before query execution
 
 ### UI & Deployment
 - Build a Streamlit or Gradio frontend for a chat interface
